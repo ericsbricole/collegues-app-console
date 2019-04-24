@@ -17,19 +17,25 @@ var rl = readline.createInterface({
 function run() {
     rl.question("", function (choice) {
         if (choice === "1") {
-            console.log("Recherche en cours du nom xxx");
-            //service.rechercherColleguesParNom("Astier", (matricule) => console.log("matricule = " + matricule) );
-            service.rechercherColleguesParNom("Astier", (matricule) => service.rechercheCollegueParMatricule(matricule, (collegue) => console.log(collegue["nom"] + "(" + collegue["dateDeNaissance"] + ")") ));
-            service.rechercherColleguesParNom("Astier", (matricule) => console.log("matricule = " + matricule) );
-            run();
+            rl.question("Entrez le nom du collègue à rechercher\n", (nomRecherche) => {
+                console.log("Recherche en cours du nom " + nomRecherche);
+                service.rechercherCollegueParNom(nomRecherche, (collegues) => {
+                    console.log("Les collègues suivants " + nomRecherche + " ont été trouvés:");
+                    for (var i = 0; i < collegues.length; i++) {
+                        let collegue = collegues[i];
+                        console.log(collegue["nom"] +" " + collegue["prenoms"] + " (" + collegue["dateDeNaissance"] + ")");
+                    };
+
+                } );
+                start();
+            });
         }
+
         else if (choice === "99") {
             console.log("Au revoir!");
             process.exit();
         }
     });
 }
-
-
 
 run();
