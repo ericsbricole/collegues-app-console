@@ -1,0 +1,8 @@
+target
+.settings
+.project
+.classpath
+node_modules
+exemples
+src/main/resources/*.log
+src/test/resources/*.log
